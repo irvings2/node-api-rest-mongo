@@ -1,10 +1,9 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const { config } = require("dotenv");
-config();
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import "dotenv/config.js";
 
-const bookRoutes = require("./routes/book.routes");
+import { bookRoutes } from "./routes/book.routes.js";
 
 //Usamos express para los middlewares
 const app = express();

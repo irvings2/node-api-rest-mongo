@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "CRUD con nodejs y mongodb",
   "main": "src/app.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon src/app.js",
     "start": "nodemon src/app.js"

@@ -1,6 +1,6 @@
-const express = require("express");
-const router = express.Router();
-const Book = require("../models/book.models");
+import express from "express";
+const bookRoutes = express.Router();
+import { Book } from "../models/book.models.js";
 
 //MIDDLEWARE
 const getBook = async (req, res, next) => {
@@ -31,7 +31,7 @@ const getBook = async (req, res, next) => {
 };
 
 //Obtener todos los libros [GET ALL]
-router.get("/", async (req, res) => {
+bookRoutes.get("/", async (req, res) => {
   try {
     const books = await Book.find();
     console.log("GET ALL", books);
@@ -45,7 +45,7 @@ router.get("/", async (req, res) => {
 });
 
 //Crear un nuevo libro (recurso) [POST]
-router.post("/", async (req, res) => {
+bookRoutes.post("/", async (req, res) => {
   const { title, author, genre, publication_date } = req?.body;
   if (!title || !author || !genre || !publication_date) {
     return res.status(400).json({
@@ -71,11 +71,11 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:id", getBook, async (req, res) => {
+bookRoutes.get("/:id", getBook, async (req, res) => {
   res.json(res.book);
 });
 
-router.put("/:id", getBook, async (req, res) => {
+bookRoutes.put("/:id", getBook, async (req, res) => {
   try {
     const book = res.book;
     book.title = req.body.title || book.title;
@@ -92,7 +92,7 @@ router.put("/:id", getBook, async (req, res) => {
   }
 });
 
-router.patch("/:id", getBook, async (req, res) => {
+bookRoutes.patch("/:id", getBook, async (req, res) => {
   if (
     !req.body.title &&
     !req.body.author &&
@@ -121,7 +121,7 @@ router.patch("/:id", getBook, async (req, res) => {
   }
 });
 
-router.delete("/:id", getBook, async (req, res) => {
+bookRoutes.delete("/:id", getBook, async (req, res) => {
   try {
     const book = res.book;
     await book.deleteOne({
@@ -137,4 +137,4 @@ router.delete("/:id", getBook, async (req, res) => {
   }
 });
 
-module.exports = router;
+export { bookRoutes };
